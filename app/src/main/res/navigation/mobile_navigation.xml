@@ -12,14 +12,29 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.cookbookapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_search_food"
+        android:name="com.example.cookbookapp.ui.search_recipes.SearchRecipeFragment"
+        android:label="@string/search_recipes"
+        tools:layout="@layout/fragment_search_recipes">
+        <action
+            android:id="@+id/action_fragment_search_recipes_to_fragment_search_recipes_details"
+            app:destination="@+id/navigation_search_food_details"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search_food_details"
+        android:name="com.example.cookbookapp.ui.search_recipe_details_fragment.SearchRecipeDetailsFragment"
+        android:label="Recipe Details"
+        tools:layout="@layout/fragment_search_recipes_details" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.cookbookapp.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+
+
+
 </navigation>
