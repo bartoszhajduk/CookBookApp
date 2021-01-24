@@ -24,17 +24,25 @@
 
     <fragment
         android:id="@+id/navigation_search_food_details"
-        android:name="com.example.cookbookapp.ui.search_recipe_details_fragment.SearchRecipeDetailsFragment"
+        android:name="com.example.cookbookapp.ui.search_recipes.SearchRecipeDetailsFragment"
         android:label="Recipe Details"
         tools:layout="@layout/fragment_search_recipes_details" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.cookbookapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_extract_recipe"
+        android:name="com.example.cookbookapp.ui.extract_recipe.ExtractRecipeFragment"
+        android:label="@string/extract_recipe"
+        tools:layout="@layout/fragment_extract_recipe" >
+        <action
+            android:id="@+id/action_fragment_extract_recipe_to_fragment_extract_recipe_details"
+            app:destination="@+id/navigation_extract_recipe_details"
+            />
+    </fragment>
 
-
-
+    <fragment
+        android:id="@+id/navigation_extract_recipe_details"
+        android:name="com.example.cookbookapp.ui.extract_recipe.ExtractRecipeDetailsFragment"
+        android:label="Extracted Recipe"
+        tools:layout="@layout/fragment_extract_recipe_details" />
 
 </navigation>

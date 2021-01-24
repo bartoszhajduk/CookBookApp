@@ -4,19 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search_recipe_details_fragment.SearchRecipeDetailsFragment">
-
-    <TextView
-        android:id="@+id/searchRecipeDetailsIngredientsWithMeasure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Składniki:"
-        app:layout_constraintBottom_toTopOf="@+id/searchRecipeDetailsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+    tools:context=".ui.search_recipes.SearchRecipeDetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRecipeDetailsRecyclerView"
@@ -25,6 +13,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchRecipeDetailsIngredientsWithMeasure" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
