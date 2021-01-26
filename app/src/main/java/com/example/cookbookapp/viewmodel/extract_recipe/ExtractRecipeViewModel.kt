@@ -1,11 +1,14 @@
 package com.example.cookbookapp.viewmodel.extract_recipe
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.cookbookapp.model.spoonacular.entities.ExtractRecipe.ExtractedRecipe
+import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.AnalyzedInstructions
 import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Step
 import com.example.cookbookapp.model.spoonacular.repository.SearchRecipesRepository
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class ExtractRecipeViewModel(application: Application): AndroidViewModel(application) {
     private var _extractedRecipe: MutableLiveData<ExtractedRecipe> = MutableLiveData()
@@ -23,12 +26,22 @@ class ExtractRecipeViewModel(application: Application): AndroidViewModel(applica
     fun getExtractedRecipe()
     {
         viewModelScope.launch {
-            _extractedRecipe.value = SearchRecipesRepository.getExtractedRecipe(recipeUrl)
+            try {
+                _extractedRecipe.value = SearchRecipesRepository.getExtractedRecipe(recipeUrl)
+            }
+            catch (e: SocketTimeoutException)
+            {
+                Log.d("URL ERROR", "Wrong url")
+            }
 
-            val tmp =  _extractedRecipe.value!!.analyzedInstructions
+            var tmp = listOf<AnalyzedInstructions>()
+            if (_extractedRecipe.value?.analyzedInstructions != null)
+            {
+                tmp = _extractedRecipe.value!!.analyzedInstructions.toList()
+            }
             val flattenedList: MutableList<Step> = mutableListOf()
 
-            if(tmp.size != 0)
+            if(tmp.isNotEmpty())
             {
                 flattenedList.addAll(tmp[0].steps)
                 for (i in 1..tmp.size - 1)

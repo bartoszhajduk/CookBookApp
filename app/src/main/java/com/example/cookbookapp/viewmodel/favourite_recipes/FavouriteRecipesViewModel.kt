@@ -40,10 +40,7 @@ class FavouriteRecipesViewModel(application: Application): AndroidViewModel(appl
 
     fun setCurrentFavouriteRecipe(favouriteRecipe: FavouriteRecipe)
     {
-        if(favouriteRecipe != null)
-        {
-            _currentFavouriteRecipe.value = favouriteRecipe
-        }
+        _currentFavouriteRecipe.value = favouriteRecipe
     }
 
 //    fun getFavouriteRecipeList()

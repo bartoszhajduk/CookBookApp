@@ -13,9 +13,9 @@ import com.example.cookbookapp.model.room.entities.FavouriteRecipe
 import com.example.cookbookapp.viewmodel.favourite_recipes.FavouriteRecipesViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-private val headerItemViewType = 1
-private val listItemViewType = 2
-private val imageNotFound = "Image not found"
+private const val headerItemViewType = 1
+private const val listItemViewType = 2
+private const val imageNotFound = "Image not found"
 
 class SearchRecipeDetailsListAdapter (var searchRecipeViewModel: SearchRecipeViewModel,
                                         var favouriteRecipesViewModel: FavouriteRecipesViewModel):
@@ -75,24 +75,18 @@ class SearchRecipeDetailsListAdapter (var searchRecipeViewModel: SearchRecipeVie
             textViewRecipeSearchHeader.text = tmpIngredientsAmount
             val imageViewRecipeSearchHeader =
                 holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
-            try
-            {
-                Glide.with(imageViewRecipeSearchHeader.context)
-                        .asBitmap()
-                        .load(searchRecipeViewModel.allRecipes.value?.baseUri +
-                                searchRecipeViewModel.allRecipes.value?.results?.get(searchRecipeViewModel.currentIndex)?.image)
-                        .into(imageViewRecipeSearchHeader)
-            }
-            catch (e: Exception)
-            {
-                Log.d(imageNotFound, "Wrong image url")
-            }
-            val floatingButtonRecipeSearch =
+            Glide.with(imageViewRecipeSearchHeader.context)
+                    .asBitmap()
+                    .placeholder(R.drawable.no_image_available)
+                    .load(searchRecipeViewModel.allRecipes.value?.baseUri +
+                            searchRecipeViewModel.allRecipes.value?.results?.get(searchRecipeViewModel.currentIndex)?.image)
+                    .into(imageViewRecipeSearchHeader)
+
+            val favouriteButton =
                     holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
-            floatingButtonRecipeSearch.setOnClickListener {
+            favouriteButton.setOnClickListener {
                 favouriteRecipesViewModel.addFavouriteRecipe(
                     FavouriteRecipe(
-                        0,
                         searchRecipeViewModel.allRecipes.value?.results?.get(searchRecipeViewModel.currentIndex)?.title?:"",
                         searchRecipeViewModel.allRecipes.value?.results?.get(searchRecipeViewModel.currentIndex)?.readyInMinutes?:0,
                         searchRecipeViewModel.allRecipes.value?.results?.get(searchRecipeViewModel.currentIndex)?.servings?:0,
@@ -102,8 +96,7 @@ class SearchRecipeDetailsListAdapter (var searchRecipeViewModel: SearchRecipeVie
                         searchRecipeViewModel.steps.value?: emptyList()
                     )
                 )
-                floatingButtonRecipeSearch.isEnabled = false
-                floatingButtonRecipeSearch.setImageResource(R.drawable.ic_favorite_24px)
+                favouriteButton.setImageResource(R.drawable.ic_favorite_24px)
             }
         }
         else

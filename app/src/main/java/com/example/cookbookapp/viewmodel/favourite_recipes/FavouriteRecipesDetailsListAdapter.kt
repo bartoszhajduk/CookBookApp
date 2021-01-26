@@ -13,10 +13,10 @@ import com.example.cookbookapp.R
 import com.example.cookbookapp.model.room.entities.FavouriteRecipe
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-private val headerItemViewType = 1
-private val listItemViewType = 2
-private val urlNotFound = "Recipe under given Url not found"
-private val imageNotFound = "Image not found"
+private const val headerItemViewType = 1
+private const val listItemViewType = 2
+private const val urlNotFound = "Recipe under given Url not found"
+private const val imageNotFound = "Image not found"
 
 class FavouriteRecipesDetailsListAdapter (private val favouriteRecipesViewModel: FavouriteRecipesViewModel,
                                           private val favouriteRecipe: LiveData<FavouriteRecipe>):
@@ -78,18 +78,12 @@ class FavouriteRecipesDetailsListAdapter (private val favouriteRecipesViewModel:
 
             val imageViewRecipeSearchHeader =
                     holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
-            try
-            {
-                Glide.with(imageViewRecipeSearchHeader.context)
-                        .asBitmap()
-                        .load(favouriteRecipe.value?.image)
-                        .into(imageViewRecipeSearchHeader)
-            }
-            catch(e: Exception)
-            {
-                imageViewRecipeSearchHeader.setImageResource(R.drawable.no_image_available)
-                Log.d(imageNotFound, "Wrong image url")
-            }
+
+            Glide.with(imageViewRecipeSearchHeader.context)
+                    .asBitmap()
+                    .placeholder(R.drawable.no_image_available)
+                    .load(favouriteRecipe.value?.image)
+                    .into(imageViewRecipeSearchHeader)
 
             val floatingButtonRecipeSearch =
                     holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
@@ -100,7 +94,6 @@ class FavouriteRecipesDetailsListAdapter (private val favouriteRecipesViewModel:
                     favouriteRecipesViewModel.deleteFavouriteRecipe(favouriteRecipe)
                     floatingButtonRecipeSearch.setImageResource(R.drawable.ic_favorite_border_24px)
                 }
-                floatingButtonRecipeSearch.isEnabled = false
             }
         }
         else if(favouriteRecipe.value?.steps?.size != 0)
@@ -141,6 +134,7 @@ class FavouriteRecipesDetailsListAdapter (private val favouriteRecipesViewModel:
                     holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
             Glide.with(imageViewRecipeSearchHeader.context)
                     .asBitmap()
+                    .placeholder(R.drawable.no_image_available)
                     .load(R.drawable.no_image_available)
                     .into(imageViewRecipeSearchHeader)
 

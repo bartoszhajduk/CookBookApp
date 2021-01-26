@@ -7,9 +7,7 @@ import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Step
 
 @Entity(tableName = "favourite_recipes_table")
 data class FavouriteRecipe (
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val title: String,
+    @PrimaryKey val title: String,
     val readyInMinutes: Int,
     val servings: Int,
     val image: String,

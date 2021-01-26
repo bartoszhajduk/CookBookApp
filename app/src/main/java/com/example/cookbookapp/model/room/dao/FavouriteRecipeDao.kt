@@ -9,7 +9,7 @@ interface FavouriteRecipeDao {
     @Query("SELECT * FROM favourite_recipes_table")
     fun getFavouriteRecipeList(): LiveData<List<FavouriteRecipe>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(favouriteRecipe: FavouriteRecipe)
 
     @Delete
