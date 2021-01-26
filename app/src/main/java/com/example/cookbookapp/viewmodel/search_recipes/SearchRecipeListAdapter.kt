@@ -42,18 +42,26 @@ class SearchRecipeListAdapter (var searchRecipeViewModel: SearchRecipeViewModel)
 
 
         holder.itemView.setOnClickListener {
-            searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?.let { it1 ->
-                searchRecipeViewModel.setNewImageUrl(searchRecipeViewModel.allRecipes.value?.baseUri +
-                        searchRecipeViewModel.allRecipes.value?.results?.get(position)?.image)
-
-                searchRecipeViewModel.allRecipes.value?.results?.get(position)?.title?.let { it2 ->
-                    searchRecipeViewModel.setNewTitle(
-                        it2
-                    )
-                }
-                searchRecipeViewModel.getAnalyzedRecipe(it1)
-                searchRecipeViewModel.getIngredientsWithAmount(it1)
-            }
+//            searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?.let { it1 ->
+//                searchRecipeViewModel.setNewImageUrl(
+//                        searchRecipeViewModel.allRecipes.value?.baseUri +
+//                        searchRecipeViewModel.allRecipes.value?.results?.get(position)?.image
+//                )
+//                searchRecipeViewModel.allRecipes.value?.results?.get(position)?.title?.let { it2 ->
+//                    searchRecipeViewModel.setNewTitle(
+//                        it2
+//                    )
+//                }
+//                searchRecipeViewModel.getAnalyzedRecipe(it1)
+//                searchRecipeViewModel.getIngredientsWithAmount(it1)
+//            }
+            searchRecipeViewModel.setCurrentIndex(position)
+            searchRecipeViewModel.getAnalyzedRecipe(
+                    searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?:0
+            )
+            searchRecipeViewModel.getIngredientsWithAmount(
+                    searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?:0
+            )
             holder.itemView.findNavController().navigate(R.id.action_fragment_search_recipes_to_fragment_search_recipes_details)
         }
     }

@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookbookapp.R
 import com.example.cookbookapp.viewmodel.extract_recipe.ExtractRecipeListAdapter
 import com.example.cookbookapp.viewmodel.extract_recipe.ExtractRecipeViewModel
+import com.example.cookbookapp.viewmodel.favourite_recipes.FavouriteRecipesViewModel
 import kotlinx.android.synthetic.main.fragment_extract_recipe_details.*
 
 class ExtractRecipeDetailsFragment : Fragment() {
     private lateinit var extractRecipeViewModel: ExtractRecipeViewModel
+    private lateinit var favouriteRecipesViewModel: FavouriteRecipesViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var extractRecipeDetailsListAdapter: ExtractRecipeListAdapter
 
@@ -25,8 +27,10 @@ class ExtractRecipeDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         extractRecipeViewModel = ViewModelProvider(requireActivity()).get(ExtractRecipeViewModel::class.java)
+        favouriteRecipesViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
         linearLayoutManager = LinearLayoutManager(requireContext())
-        extractRecipeDetailsListAdapter = ExtractRecipeListAdapter(extractRecipeViewModel)
+        extractRecipeDetailsListAdapter = ExtractRecipeListAdapter(extractRecipeViewModel,
+                                                                    favouriteRecipesViewModel)
 
         return inflater.inflate(R.layout.fragment_extract_recipe_details, container, false)
     }

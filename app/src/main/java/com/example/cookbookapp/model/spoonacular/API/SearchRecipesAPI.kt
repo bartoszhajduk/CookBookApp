@@ -22,14 +22,4 @@ interface SearchRecipesAPI {
 
     @GET("recipes/extract?apiKey=c2ba9a8a7f9a460eadcbab9126a1ee6b")
     fun getExtractedRecipe(@Query("url") url: String): Call<ExtractedRecipe>
-
-//    @GET("station/findAll")
-//    fun getSearchedRecipes(): Call<List<SearchRecipes>>
-
-//    @GET("station/sensors/{stationId}")
-//    fun getAllStationSensorsById(@Path("stationId") stationId :Int): Call<List<Sensor>>
-//
-//    @GET("data/getData/{sensorId}")
-//    fun getSensorDataById(@Path("sensorId") sensorId:Int): Call<Data>
-
 }

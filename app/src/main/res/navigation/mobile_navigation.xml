@@ -3,13 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_favourite_recipes">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.cookbookapp.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_favourite_recipes"
+        android:name="com.example.cookbookapp.ui.favourite_recipes.FavouriteRecipesFragment"
+        android:label="@string/favourite_recipes"
+        tools:layout="@layout/fragment_favourite_recipes" >
+        <action
+            android:id="@+id/action_fragment_favourite_recipes_to_fragment_favourite_recipe_details"
+            app:destination="@+id/navigation_favourite_recipe_details"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favourite_recipe_details"
+        android:name="com.example.cookbookapp.ui.favourite_recipes.FavouriteRecipeDetailsFragment"
+        android:label="Recipe details"
+        tools:layout="@layout/fragment_favourite_recipes_details">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search_food"
@@ -25,7 +37,7 @@
     <fragment
         android:id="@+id/navigation_search_food_details"
         android:name="com.example.cookbookapp.ui.search_recipes.SearchRecipeDetailsFragment"
-        android:label="Recipe Details"
+        android:label="Recipe details"
         tools:layout="@layout/fragment_search_recipes_details" />
 
     <fragment

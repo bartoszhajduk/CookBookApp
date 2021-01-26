@@ -13,21 +13,25 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
     val allRecipes: LiveData<SearchRecipes>
         get() = _allRecipes
 
-    private val _recipeDetails: MutableLiveData<List<Step>> = MutableLiveData()
-    val recipeDetails: LiveData<List<Step>>
-        get() = _recipeDetails
+    private val _steps: MutableLiveData<List<Step>> = MutableLiveData()
+    val steps: LiveData<List<Step>>
+        get() = _steps
 
     private val _recipeIngredientWithAmounts: MutableLiveData<IngredientsWithAmount> = MutableLiveData()
     val recipeIngredientWithAmounts: LiveData<IngredientsWithAmount>
         get() = _recipeIngredientWithAmounts
 
-    private var _currentImageUrl: String = ""
-    val currentImageUrl: String
-        get() = _currentImageUrl
+//    private var _currentImageUrl: String = ""
+//    val currentImageUrl: String
+//        get() = _currentImageUrl
+//
+//    private var _currentTitle: String = ""
+//    val currentTitle: String
+//        get() = _currentTitle
 
-    private var _currentTitle: String = ""
-    val currentTitle: String
-        get() = _currentTitle
+    private var _currentIndex: Int = -1
+    val currentIndex: Int
+        get() = _currentIndex
 
     fun getAllRecipesByKeyword(newKeyWord: String)
     {
@@ -42,7 +46,7 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
             val tmp = SearchRecipesRepository.getAnalyzedRecipe(id)
             val flattenedList: MutableList<Step> = mutableListOf()
 
-            if(tmp.size != 0)
+            if(tmp.isNotEmpty())
             {
                 flattenedList.addAll(tmp[0].steps)
                 for (i in 1..tmp.size - 1)
@@ -54,7 +58,7 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
                     flattenedList.addAll(tmp[i].steps)
                 }
             }
-            _recipeDetails.value = flattenedList
+            _steps.value = flattenedList
         }
     }
 
@@ -65,13 +69,18 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-    fun setNewImageUrl(url: String)
+    fun setCurrentIndex(index: Int)
     {
-        _currentImageUrl = url
+        _currentIndex = index
     }
 
-    fun setNewTitle(title: String)
-    {
-        _currentTitle = title
-    }
+//    fun setNewImageUrl(url: String)
+//    {
+//        _currentImageUrl = url
+//    }
+//
+//    fun setNewTitle(title: String)
+//    {
+//        _currentTitle = title
+//    }
 }

@@ -30,8 +30,7 @@ class SearchRecipeFragment : Fragment() {
         searchRecipeViewModel.allRecipes.observe(viewLifecycleOwner, {
             searchRecipeListAdapter.notifyDataSetChanged()
         })
-        val root = inflater.inflate(R.layout.fragment_search_recipes, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_search_recipes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

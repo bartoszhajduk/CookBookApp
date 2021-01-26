@@ -1,5 +1,6 @@
 package com.example.cookbookapp.viewmodel.extract_recipe
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cookbookapp.R
+import com.example.cookbookapp.model.room.entities.FavouriteRecipe
+import com.example.cookbookapp.viewmodel.favourite_recipes.FavouriteRecipesViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 private val headerItemViewType = 1
 private val listItemViewType = 2
-private val notFound = "Recipe under given Url not found"
 
-class ExtractRecipeListAdapter ( var extractRecipeViewModel: ExtractRecipeViewModel ):
+private val urlNotFound = "Recipe under given Url not found"
+private val imageNotFound = "Image not found"
+
+class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewModel,
+                                 val favouriteRecipesViewModel: FavouriteRecipesViewModel):
     RecyclerView.Adapter<ExtractRecipeListAdapter.ExtractRecipeHolder>()
 {
     inner class ExtractRecipeHolder(view: View): RecyclerView.ViewHolder(view)
@@ -72,10 +79,37 @@ class ExtractRecipeListAdapter ( var extractRecipeViewModel: ExtractRecipeViewMo
 
             val imageViewRecipeSearchHeader =
                 holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
-            Glide.with(imageViewRecipeSearchHeader.context)
-                .asBitmap()
-                .load(extractRecipeViewModel.extractedRecipe.value?.image)
-                .into(imageViewRecipeSearchHeader)
+            try
+            {
+                Glide.with(imageViewRecipeSearchHeader.context)
+                        .asBitmap()
+                        .load(extractRecipeViewModel.extractedRecipe.value?.image)
+                        .into(imageViewRecipeSearchHeader)
+            }
+            catch(e: Exception)
+            {
+                imageViewRecipeSearchHeader.setImageResource(R.drawable.no_image_available)
+                Log.d(imageNotFound, "Wrong image url")
+            }
+
+
+            val floatingButtonRecipeSearch =
+                holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
+            floatingButtonRecipeSearch.setOnClickListener {
+                favouriteRecipesViewModel.addFavouriteRecipe(
+                    FavouriteRecipe(
+                    0,
+                    extractRecipeViewModel.extractedRecipe.value?.title?:"",
+                    extractRecipeViewModel.extractedRecipe.value?.readyInMinutes?:0,
+                    extractRecipeViewModel.extractedRecipe.value?.servings?:0,
+                    extractRecipeViewModel.extractedRecipe.value?.image?:"",
+                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?: emptyList(),
+                    extractRecipeViewModel.steps.value ?: emptyList()
+                    )
+                )
+                floatingButtonRecipeSearch.isEnabled = false
+                floatingButtonRecipeSearch.setImageResource(R.drawable.ic_favorite_24px)
+            }
         }
         else if(extractRecipeViewModel.extractedRecipe.value?.analyzedInstructions?.size ?:0 != 0)
         {
@@ -120,7 +154,7 @@ class ExtractRecipeListAdapter ( var extractRecipeViewModel: ExtractRecipeViewMo
 
             val titleRecipeSearchHeader =
                     holder.itemView.findViewById<TextView>(R.id.recipeSearchHeaderTitle)
-            titleRecipeSearchHeader.text = notFound
+            titleRecipeSearchHeader.text = urlNotFound
         }
     }
 

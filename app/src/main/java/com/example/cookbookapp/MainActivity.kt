@@ -19,11 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home,
+                R.id.navigation_favourite_recipes,
                 R.id.navigation_search_food,
                 R.id.navigation_extract_recipe,
                 R.id.navigation_search_food_details,
-                R.id.navigation_extract_recipe_details))
+                R.id.navigation_extract_recipe_details,
+                R.id.navigation_favourite_recipe_details))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -38,5 +39,6 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.navigation_extract_recipe_details)
             }
         }
+
     }
 }

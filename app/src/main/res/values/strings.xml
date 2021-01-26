@@ -13,4 +13,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="extract_recipe">Extract recipe</string>
     <string name="url">URL</string>
+    <string name="favourite_recipes">Favourite recipes</string>
 </resources>
