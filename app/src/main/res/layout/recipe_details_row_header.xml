@@ -24,7 +24,6 @@
         android:layout_gravity="right"
         android:layout_margin="8dp"
         android:clickable="true"
-        android:tint="@color/red"
         app:srcCompat="@drawable/ic_favorite_border_24px"
         app:fabCustomSize="50dp"/>
 

@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/search"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/editTextSearchRecipes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextSearchRecipes"
