@@ -3,11 +3,13 @@
     android:id="@+id/recipeSearchIngredientsContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/layout_bg"
     android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:background="@drawable/stepborder"
-    android:layout_margin="5dp">
+    android:paddingLeft="7dp"
+    android:paddingTop="7dp"
+    android:paddingRight="7dp"
+    android:paddingBottom="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,23 +18,31 @@
 
         <TextView
             android:id="@+id/recipeSearchNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_vertical"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
             android:layout_marginStart="5dp"
-            android:background="@drawable/border"
+            android:background="@drawable/circle_drawable"
+            android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="Number"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="90"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="25sp"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/recipeSearchStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="Step"
             android:textSize="16sp" />
     </LinearLayout>
@@ -41,7 +51,8 @@
         android:id="@+id/recipeSearchEquipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="Equipment: "
         android:textStyle="italic|bold" />
 
@@ -49,9 +60,11 @@
         android:id="@+id/recipeSearchIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="Ingredients: "
-        android:textStyle="italic|bold" />
+        android:textStyle="italic|bold"
+        android:layout_marginBottom="5dp" />
 
 
 </LinearLayout>
