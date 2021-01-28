@@ -3,8 +3,8 @@ package com.example.cookbookapp.model.spoonacular.repository
 import com.example.cookbookapp.model.spoonacular.entities.SearchRecipe.SearchRecipes
 import com.example.cookbookapp.model.spoonacular.API.SearchRecipesService
 import com.example.cookbookapp.model.spoonacular.entities.ExtractRecipe.ExtractedRecipe
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.AnalyzedInstructions
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.IngredientsWithAmount
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.AnalyzedInstructions
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.IngredientsWithAmount
 import retrofit2.awaitResponse
 
 class SearchRecipesRepository {

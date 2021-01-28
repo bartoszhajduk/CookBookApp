@@ -2,8 +2,8 @@ package com.example.cookbookapp.viewmodel.search_recipes
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.IngredientsWithAmount
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Step
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.IngredientsWithAmount
+import com.example.cookbookapp.model.spoonacular.entities.SharedEntities.Step
 import com.example.cookbookapp.model.spoonacular.entities.SearchRecipe.SearchRecipes
 import com.example.cookbookapp.model.spoonacular.repository.SearchRecipesRepository
 import kotlinx.coroutines.launch
@@ -20,14 +20,6 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
     private val _recipeIngredientWithAmounts: MutableLiveData<IngredientsWithAmount> = MutableLiveData()
     val recipeIngredientWithAmounts: LiveData<IngredientsWithAmount>
         get() = _recipeIngredientWithAmounts
-
-//    private var _currentImageUrl: String = ""
-//    val currentImageUrl: String
-//        get() = _currentImageUrl
-//
-//    private var _currentTitle: String = ""
-//    val currentTitle: String
-//        get() = _currentTitle
 
     private var _currentIndex: Int = -1
     val currentIndex: Int
@@ -46,7 +38,7 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
             val tmp = SearchRecipesRepository.getAnalyzedRecipe(id)
             val flattenedList: MutableList<Step> = mutableListOf()
 
-            if(tmp.isNotEmpty())
+            if(!tmp.isNullOrEmpty())
             {
                 flattenedList.addAll(tmp[0].steps)
                 for (i in 1..tmp.size - 1)
@@ -73,14 +65,4 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
     {
         _currentIndex = index
     }
-
-//    fun setNewImageUrl(url: String)
-//    {
-//        _currentImageUrl = url
-//    }
-//
-//    fun setNewTitle(title: String)
-//    {
-//        _currentTitle = title
-//    }
 }

@@ -31,9 +31,10 @@ class MainActivity : AppCompatActivity() {
         if(intent?.action == Intent.ACTION_SEND )
         {
             if ("text/plain" == intent.type) {
-                val extractRecipeViewModel =
-                    ViewModelProvider(this).get(ExtractRecipeViewModel::class.java)
-                intent.getStringExtra(Intent.EXTRA_TEXT)?.let { extractRecipeViewModel.setUrl(it) }
+                val extractRecipeViewModel = ViewModelProvider(this).get(ExtractRecipeViewModel::class.java)
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+                    extractRecipeViewModel.setUrl(it)
+                }
                 extractRecipeViewModel.getExtractedRecipe()
                 navController.navigate(R.id.navigation_extract_recipe)
                 navController.navigate(R.id.navigation_extract_recipe_details)

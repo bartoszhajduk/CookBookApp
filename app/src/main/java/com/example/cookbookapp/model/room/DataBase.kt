@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.*
 import com.example.cookbookapp.model.room.dao.FavouriteRecipeDao
 import com.example.cookbookapp.model.room.entities.FavouriteRecipe
-import kotlinx.serialization.json.Json
 
 @Database(entities = [FavouriteRecipe::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)

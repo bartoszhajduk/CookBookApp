@@ -1,8 +1,8 @@
 package com.example.cookbookapp.model.spoonacular.API
 
 import com.example.cookbookapp.model.spoonacular.entities.ExtractRecipe.ExtractedRecipe
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.AnalyzedInstructions
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.IngredientsWithAmount
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.AnalyzedInstructions
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.IngredientsWithAmount
 import com.example.cookbookapp.model.spoonacular.entities.SearchRecipe.SearchRecipes
 import retrofit2.Call
 import retrofit2.http.GET

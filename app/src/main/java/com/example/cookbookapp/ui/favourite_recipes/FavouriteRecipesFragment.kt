@@ -23,9 +23,7 @@ class FavouriteRecipesFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        favouriteRecipesViewModel =
-                ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
-
+        favouriteRecipesViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
         linearLayoutManager = LinearLayoutManager(requireContext())
         favouriteRecipesListAdapter = FavouriteRecipesListAdapter(favouriteRecipesViewModel)
 

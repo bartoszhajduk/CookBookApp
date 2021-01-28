@@ -1,6 +1,5 @@
 package com.example.cookbookapp.viewmodel.extract_recipe
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 private const val headerItemViewType = 1
 private const val listItemViewType = 2
 private const val urlNotFound = "Recipe under given Url not found"
-private const val imageNotFound = "Image not found"
 
-class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewModel,
-                                 val favouriteRecipesViewModel: FavouriteRecipesViewModel):
+class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecipeViewModel,
+                                private val favouriteRecipesViewModel: FavouriteRecipesViewModel):
     RecyclerView.Adapter<ExtractRecipeListAdapter.ExtractRecipeHolder>()
 {
     inner class ExtractRecipeHolder(view: View): RecyclerView.ViewHolder(view)
@@ -52,7 +50,7 @@ class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewMo
             val tmpIngredientsAmount = StringBuilder()
             tmpIngredientsAmount.append("Ingredients:")
             tmpIngredientsAmount.append("\n")
-            for(i in 0..(extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.size ?: 0) -1)
+            for(i in 0 until (extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.size ?: 0))
             {
                 tmpIngredientsAmount.append("\u2022")
                 tmpIngredientsAmount.append(" ")
@@ -68,25 +66,21 @@ class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewMo
 
                 tmpIngredientsAmount.append("\n")
             }
-            val titleRecipeSearchHeader =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchHeaderTitle)
-            titleRecipeSearchHeader.text = extractRecipeViewModel.extractedRecipe.value?.title
-
-            val textViewRecipeSearchHeader =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchHeader)
-            textViewRecipeSearchHeader.text = tmpIngredientsAmount
-
-            val imageViewRecipeSearchHeader =
-                holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
-            Glide.with(imageViewRecipeSearchHeader.context)
+            val image = holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
+            Glide.with(image.context)
                     .asBitmap()
                     .placeholder(R.drawable.no_image_available)
                     .load(extractRecipeViewModel.extractedRecipe.value?.image)
-                    .into(imageViewRecipeSearchHeader)
+                    .into(image)
 
-            val floatingButtonRecipeSearch =
-                holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
-            floatingButtonRecipeSearch.setOnClickListener {
+            val title = holder.itemView.findViewById<TextView>(R.id.recipeSearchHeaderTitle)
+            title.text = extractRecipeViewModel.extractedRecipe.value?.title
+
+            val ingredients = holder.itemView.findViewById<TextView>(R.id.recipeSearchHeader)
+            ingredients.text = tmpIngredientsAmount
+
+            val favouriteButton = holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
+            favouriteButton.setOnClickListener {
                 favouriteRecipesViewModel.addFavouriteRecipe(
                     FavouriteRecipe(
                     extractRecipeViewModel.extractedRecipe.value?.title?:"",
@@ -97,24 +91,18 @@ class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewMo
                     extractRecipeViewModel.steps.value ?: emptyList()
                     )
                 )
-                floatingButtonRecipeSearch.setImageResource(R.drawable.ic_favorite_24px)
+                favouriteButton.setImageResource(R.drawable.ic_favorite_24px)
             }
         }
         else if(extractRecipeViewModel.extractedRecipe.value?.analyzedInstructions?.size ?:0 != 0)
         {
-            val textViewRecipeSearchNumber =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchNumber)
-            val textViewRecipeSearchStep =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchStep)
-            val textViewRecipeSearchEquipment =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchEquipment)
-            val textViewRecipeSearchIngredients =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchIngredients)
+            val stepNumber = holder.itemView.findViewById<TextView>(R.id.recipeSearchNumber)
+            val stepInstruction = holder.itemView.findViewById<TextView>(R.id.recipeSearchStep)
+            val stepEquipment = holder.itemView.findViewById<TextView>(R.id.recipeSearchEquipment)
+            val stepIngredients = holder.itemView.findViewById<TextView>(R.id.recipeSearchIngredients)
 
-            textViewRecipeSearchNumber.text =
-                extractRecipeViewModel.steps.value?.get(position - 1)?.number.toString()
-            textViewRecipeSearchStep.text =
-                extractRecipeViewModel.steps.value?.get(position - 1)?.step
+            stepNumber.text = extractRecipeViewModel.steps.value?.get(position - 1)?.number.toString()
+            stepInstruction.text = extractRecipeViewModel.steps.value?.get(position - 1)?.step
 
             val tmpEquipment = StringBuilder()
             tmpEquipment.append("Equipment: ")
@@ -122,7 +110,7 @@ class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewMo
             {
                 tmpEquipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name).append(", ")
             }
-            textViewRecipeSearchEquipment.text = tmpEquipment
+            stepEquipment.text = tmpEquipment
 
             val tmpIngredients = StringBuilder()
             tmpIngredients.append("Ingredients: ")
@@ -130,20 +118,20 @@ class ExtractRecipeListAdapter ( val extractRecipeViewModel: ExtractRecipeViewMo
             {
                 tmpIngredients.append(extractRecipeViewModel.steps.value?.get(position - 1)?.ingredients?.get(i)?.name).append(", ")
             }
-            textViewRecipeSearchIngredients.text = tmpIngredients
+            stepIngredients.text = tmpIngredients
         }
         else
         {
-            val imageViewRecipeSearchHeader =
-                    holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
-            imageViewRecipeSearchHeader.setImageResource(R.drawable.no_image_available)
+            val image = holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
+            Glide.with(image.context)
+                    .asBitmap()
+                    .load(R.drawable.no_image_available)
+                    .into(image)
 
-            val titleRecipeSearchHeader =
-                    holder.itemView.findViewById<TextView>(R.id.recipeSearchHeaderTitle)
-            titleRecipeSearchHeader.text = urlNotFound
+            val title = holder.itemView.findViewById<TextView>(R.id.recipeSearchHeaderTitle)
+            title.text = urlNotFound
 
-            val favouriteButton =
-                    holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
+            val favouriteButton = holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
             favouriteButton.isEnabled = false
         }
     }

@@ -1,9 +1,8 @@
 package com.example.cookbookapp.model.room
 
 import androidx.room.TypeConverter
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Equipment
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.ExtendedIngredient
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Step
+import com.example.cookbookapp.model.spoonacular.entities.SharedEntities.ExtendedIngredient
+import com.example.cookbookapp.model.spoonacular.entities.SharedEntities.Step
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -30,14 +29,4 @@ class Converter {
         val itemType = object : TypeToken<List<Step>>() {}.type
         return gson.fromJson<List<Step>>(string, itemType)
     }
-
-//    @TypeConverter
-//    fun equipmentListToString(list: List<Equipment>): String? {
-//        return gson.toJson(list)
-//    }
-//
-//    @TypeConverter
-//    fun stringToEquipmentList(string: String): List<Equipment>? {
-//        return gson.fromJson<List<Equipment>>(string, Equipment::class.java)
-//    }
 }

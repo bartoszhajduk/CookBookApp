@@ -23,13 +23,13 @@ class SearchRecipeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         searchRecipeViewModel = ViewModelProvider(requireActivity()).get(SearchRecipeViewModel::class.java)
-
         gridLayoutManager = GridLayoutManager(requireContext(),2)
         searchRecipeListAdapter = SearchRecipeListAdapter(searchRecipeViewModel)
 
         searchRecipeViewModel.allRecipes.observe(viewLifecycleOwner, {
             searchRecipeListAdapter.notifyDataSetChanged()
         })
+
         return inflater.inflate(R.layout.fragment_search_recipes, container, false)
     }
 

@@ -29,8 +29,7 @@ class ExtractRecipeDetailsFragment : Fragment() {
         extractRecipeViewModel = ViewModelProvider(requireActivity()).get(ExtractRecipeViewModel::class.java)
         favouriteRecipesViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
         linearLayoutManager = LinearLayoutManager(requireContext())
-        extractRecipeDetailsListAdapter = ExtractRecipeListAdapter(extractRecipeViewModel,
-                                                                    favouriteRecipesViewModel)
+        extractRecipeDetailsListAdapter = ExtractRecipeListAdapter(extractRecipeViewModel, favouriteRecipesViewModel)
 
         return inflater.inflate(R.layout.fragment_extract_recipe_details, container, false)
     }

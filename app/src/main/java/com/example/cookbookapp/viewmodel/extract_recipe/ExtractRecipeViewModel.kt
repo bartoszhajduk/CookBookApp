@@ -4,8 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.cookbookapp.model.spoonacular.entities.ExtractRecipe.ExtractedRecipe
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.AnalyzedInstructions
-import com.example.cookbookapp.model.spoonacular.entities.GetAnalyzedRecipe.Step
+import com.example.cookbookapp.model.spoonacular.entities.AnalyzedInstructions.AnalyzedInstructions
+import com.example.cookbookapp.model.spoonacular.entities.SharedEntities.Step
 import com.example.cookbookapp.model.spoonacular.repository.SearchRecipesRepository
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
@@ -19,9 +19,7 @@ class ExtractRecipeViewModel(application: Application): AndroidViewModel(applica
     val steps: LiveData<List<Step>>
         get() = _steps
 
-    private var _recipeUrl: String = ""
-    val recipeUrl: String
-        get() = _recipeUrl
+    private var recipeUrl: String = ""
 
     fun getExtractedRecipe()
     {
@@ -59,6 +57,6 @@ class ExtractRecipeViewModel(application: Application): AndroidViewModel(applica
 
     fun setUrl(newUrl: String)
     {
-        _recipeUrl = newUrl
+        recipeUrl = newUrl
     }
 }

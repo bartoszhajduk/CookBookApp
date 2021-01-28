@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cookbookapp.R
 
-class SearchRecipeListAdapter (var searchRecipeViewModel: SearchRecipeViewModel):
+class SearchRecipeListAdapter (private val searchRecipeViewModel: SearchRecipeViewModel):
     RecyclerView.Adapter<SearchRecipeListAdapter.SearchRecipeHolder>()
 {
     inner class SearchRecipeHolder(view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRecipeHolder {
-        val view= LayoutInflater.from(parent.context).inflate(
+        val view = LayoutInflater.from(parent.context).inflate(
             R.layout.fragment_search_recipes_row,
             parent,
             false
@@ -25,36 +25,23 @@ class SearchRecipeListAdapter (var searchRecipeViewModel: SearchRecipeViewModel)
     }
 
     override fun onBindViewHolder(holder: SearchRecipeHolder, position: Int) {
-        val textViewRecipeSearchTitle = holder.itemView.findViewById<TextView>(R.id.recipeSearchTitle)
-        val textViewRecipeSearchReadyInMinutes = holder.itemView.findViewById<TextView>(R.id.recipeSearchReadyInMinutes)
-        val textViewRecipeSearchServings = holder.itemView.findViewById<TextView>(R.id.recipeSearchServings)
-        val imageViewRecipeSearch = holder.itemView.findViewById<ImageView>(R.id.recipeSearchImage)
+        val image = holder.itemView.findViewById<ImageView>(R.id.recipeSearchImage)
+        val title = holder.itemView.findViewById<TextView>(R.id.recipeSearchTitle)
+        val readyInMinutes = holder.itemView.findViewById<TextView>(R.id.recipeSearchReadyInMinutes)
+        val servings = holder.itemView.findViewById<TextView>(R.id.recipeSearchServings)
 
-        textViewRecipeSearchTitle.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.title
-        textViewRecipeSearchReadyInMinutes.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.readyInMinutes?.toString() + " min"
-        textViewRecipeSearchServings.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.servings?.toString()
-
-        val joinedImageURL = searchRecipeViewModel.allRecipes.value?.baseUri + searchRecipeViewModel.allRecipes.value?.results?.get(position)?.image
-        Glide.with(imageViewRecipeSearch.context)
+        val joinedImageURL = searchRecipeViewModel.allRecipes.value?.baseUri +
+                searchRecipeViewModel.allRecipes.value?.results?.get(position)?.image
+        Glide.with(image.context)
                 .asBitmap()
+                .placeholder(R.drawable.no_image_available)
                 .load(joinedImageURL)
-                .into(imageViewRecipeSearch)
-
+                .into(image)
+        title.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.title
+        readyInMinutes.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.readyInMinutes?.toString()
+        servings.text = searchRecipeViewModel.allRecipes.value?.results?.get(position)?.servings?.toString()
 
         holder.itemView.setOnClickListener {
-//            searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?.let { it1 ->
-//                searchRecipeViewModel.setNewImageUrl(
-//                        searchRecipeViewModel.allRecipes.value?.baseUri +
-//                        searchRecipeViewModel.allRecipes.value?.results?.get(position)?.image
-//                )
-//                searchRecipeViewModel.allRecipes.value?.results?.get(position)?.title?.let { it2 ->
-//                    searchRecipeViewModel.setNewTitle(
-//                        it2
-//                    )
-//                }
-//                searchRecipeViewModel.getAnalyzedRecipe(it1)
-//                searchRecipeViewModel.getIngredientsWithAmount(it1)
-//            }
             searchRecipeViewModel.setCurrentIndex(position)
             searchRecipeViewModel.getAnalyzedRecipe(
                     searchRecipeViewModel.allRecipes.value?.results?.get(position)?.id?:0

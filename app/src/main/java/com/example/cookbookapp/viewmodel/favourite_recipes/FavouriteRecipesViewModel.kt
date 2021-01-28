@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 class FavouriteRecipesViewModel(application: Application): AndroidViewModel(application) {
     val favouriteRecipes: LiveData<List<FavouriteRecipe>>
 
-    private val favouriteRecipeRepository: FavouriteRecipeRepository =
-            FavouriteRecipeRepository(DataBase.getDatabase(application).favouriteRecipeDao())
-
     private var _currentFavouriteRecipe: MutableLiveData<FavouriteRecipe> = MutableLiveData()
     val currentFavouriteRecipe: LiveData<FavouriteRecipe>
         get() = _currentFavouriteRecipe
+
+    private val favouriteRecipeRepository: FavouriteRecipeRepository =
+            FavouriteRecipeRepository(DataBase.getDatabase(application).favouriteRecipeDao())
 
     init {
         favouriteRecipes = favouriteRecipeRepository.getFavouriteRecipeList()
@@ -42,11 +42,4 @@ class FavouriteRecipesViewModel(application: Application): AndroidViewModel(appl
     {
         _currentFavouriteRecipe.value = favouriteRecipe
     }
-
-//    fun getFavouriteRecipeList()
-//    {
-//        viewModelScope.launch {
-//            favouriteRecipes = favouriteRecipeRepository.getFavouriteRecipeList()
-//        }
-//    }
 }

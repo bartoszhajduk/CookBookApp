@@ -22,12 +22,12 @@ class FavouriteRecipeDetailsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-       favouriteRecipeDetailsViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
+        favouriteRecipeDetailsViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
         linearLayoutManager = LinearLayoutManager(requireContext())
-       favouriteRecipeDetailsListAdapter = FavouriteRecipesDetailsListAdapter(
-               favouriteRecipeDetailsViewModel,
-               favouriteRecipeDetailsViewModel.currentFavouriteRecipe
-       )
+        favouriteRecipeDetailsListAdapter = FavouriteRecipesDetailsListAdapter (
+                                           favouriteRecipeDetailsViewModel,
+                                           favouriteRecipeDetailsViewModel.currentFavouriteRecipe
+                                            )
 
         favouriteRecipeDetailsViewModel.currentFavouriteRecipe.observe(viewLifecycleOwner, {
             favouriteRecipeDetailsListAdapter.notifyDataSetChanged()

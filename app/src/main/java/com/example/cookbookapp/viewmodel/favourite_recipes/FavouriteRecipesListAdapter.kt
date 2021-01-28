@@ -1,6 +1,5 @@
 package com.example.cookbookapp.viewmodel.favourite_recipes
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cookbookapp.R
 
-class FavouriteRecipesListAdapter (var favouriteRecipesViewModel: FavouriteRecipesViewModel):
+class FavouriteRecipesListAdapter (private val favouriteRecipesViewModel: FavouriteRecipesViewModel):
     RecyclerView.Adapter<FavouriteRecipesListAdapter.FavouriteRecipesHolder>()
 {
     inner class FavouriteRecipesHolder(view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteRecipesHolder {
-        val view= LayoutInflater.from(parent.context).inflate(
+        val view = LayoutInflater.from(parent.context).inflate(
             R.layout.fragment_search_recipes_row,
             parent,
             false
@@ -26,33 +25,19 @@ class FavouriteRecipesListAdapter (var favouriteRecipesViewModel: FavouriteRecip
     }
 
     override fun onBindViewHolder(holder: FavouriteRecipesHolder, position: Int) {
-        val textViewFavouriteRecipeTitle =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchTitle)
-        val textViewFavouriteRecipeReadyInMinutes =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchReadyInMinutes)
-        val textViewFavouriteRecipeServings =
-                holder.itemView.findViewById<TextView>(R.id.recipeSearchServings)
-        val imageViewFavouriteRecipe =
-                holder.itemView.findViewById<ImageView>(R.id.recipeSearchImage)
+        val image = holder.itemView.findViewById<ImageView>(R.id.recipeSearchImage)
+        val title = holder.itemView.findViewById<TextView>(R.id.recipeSearchTitle)
+        val readyInMinutes = holder.itemView.findViewById<TextView>(R.id.recipeSearchReadyInMinutes)
+        val servings = holder.itemView.findViewById<TextView>(R.id.recipeSearchServings)
 
-        textViewFavouriteRecipeTitle.text =
-                favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.title ?: ""
-        textViewFavouriteRecipeReadyInMinutes.text =
-                favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.readyInMinutes.toString()
-        textViewFavouriteRecipeServings.text =
-                favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.servings.toString()
-        try
-        {
-            Glide.with(imageViewFavouriteRecipe.context)
-                    .asBitmap()
-                    .load(favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.image)
-                    .into(imageViewFavouriteRecipe)
-        }
-        catch(e: Exception)
-        {
-            imageViewFavouriteRecipe.setImageResource(R.drawable.no_image_available)
-            Log.d("ERROR", "Nie działa :c")
-        }
+        Glide.with(image.context)
+                .asBitmap()
+                .placeholder(R.drawable.no_image_available)
+                .load(favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.image)
+                .into(image)
+        title.text = favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.title ?: ""
+        readyInMinutes.text = favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.readyInMinutes.toString()
+        servings.text = favouriteRecipesViewModel.favouriteRecipes.value?.get(position)?.servings.toString()
 
         holder.itemView.setOnClickListener {
             favouriteRecipesViewModel.favouriteRecipes.value?.let { favouriteRecipeList ->

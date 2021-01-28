@@ -23,7 +23,6 @@ class SearchRecipeDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         searchRecipeViewModel = ViewModelProvider(requireActivity()).get(SearchRecipeViewModel::class.java)
         favouriteRecipesViewModel = ViewModelProvider(requireActivity()).get(FavouriteRecipesViewModel::class.java)
-
         linearLayoutManager = LinearLayoutManager(requireContext())
         searchRecipeDetailsListAdapter = SearchRecipeDetailsListAdapter(searchRecipeViewModel, favouriteRecipesViewModel)
 
