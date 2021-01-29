@@ -25,6 +25,11 @@ class SearchRecipeViewModel(application: Application): AndroidViewModel(applicat
     val currentIndex: Int
         get() = _currentIndex
 
+    init
+    {
+        getAllRecipesByKeyword("")
+    }
+
     fun getAllRecipesByKeyword(newKeyWord: String)
     {
         viewModelScope.launch {

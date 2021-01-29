@@ -47,25 +47,6 @@ class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecip
         if(getItemViewType(position) == headerItemViewType &&
                 extractRecipeViewModel.extractedRecipe.value?.analyzedInstructions?.size ?:0  != 0)
         {
-            val tmpIngredientsAmount = StringBuilder()
-            tmpIngredientsAmount.append("Ingredients:")
-            tmpIngredientsAmount.append("\n")
-            for(i in 0 until (extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.size ?: 0))
-            {
-                tmpIngredientsAmount.append("\u2022")
-                tmpIngredientsAmount.append(" ")
-                tmpIngredientsAmount.append(
-                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.name)
-
-                tmpIngredientsAmount.append(" ")
-                tmpIngredientsAmount.append(
-                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.measures?.metric?.amount)
-
-                tmpIngredientsAmount.append(
-                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.measures?.metric?.unitShort)
-
-                tmpIngredientsAmount.append("\n")
-            }
             val image = holder.itemView.findViewById<ImageView>(R.id.recipeSearchHeaderImage)
             Glide.with(image.context)
                     .asBitmap()
@@ -77,7 +58,7 @@ class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecip
             title.text = extractRecipeViewModel.extractedRecipe.value?.title
 
             val ingredients = holder.itemView.findViewById<TextView>(R.id.recipeSearchHeader)
-            ingredients.text = tmpIngredientsAmount
+            ingredients.text = createIngredientsList()
 
             val favouriteButton = holder.itemView.findViewById<FloatingActionButton>(R.id.recipeSearchFavouriteButton)
             favouriteButton.setOnClickListener {
@@ -103,22 +84,8 @@ class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecip
 
             stepNumber.text = extractRecipeViewModel.steps.value?.get(position - 1)?.number.toString()
             stepInstruction.text = extractRecipeViewModel.steps.value?.get(position - 1)?.step
-
-            val tmpEquipment = StringBuilder()
-            tmpEquipment.append("Equipment: ")
-            for(i in 0..(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.size?.minus(1) ?: 0))
-            {
-                tmpEquipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name).append(", ")
-            }
-            stepEquipment.text = tmpEquipment
-
-            val tmpIngredients = StringBuilder()
-            tmpIngredients.append("Ingredients: ")
-            for(i in 0..(extractRecipeViewModel.steps.value?.get(position - 1)?.ingredients?.size?.minus(1) ?: 0))
-            {
-                tmpIngredients.append(extractRecipeViewModel.steps.value?.get(position - 1)?.ingredients?.get(i)?.name).append(", ")
-            }
-            stepIngredients.text = tmpIngredients
+            stepEquipment.text = createEquipmentForStepList(position)
+            stepIngredients.text = createIngredientsForStepList(position)
         }
         else
         {
@@ -145,6 +112,52 @@ class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecip
         {
             listItemViewType
         }
+    }
+
+    private fun createIngredientsList(): StringBuilder
+    {
+        val ingredientsAmount = StringBuilder()
+        ingredientsAmount.append("Ingredients:")
+        ingredientsAmount.append("\n")
+        for(i in 0 until (extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.size ?: 0))
+        {
+            ingredientsAmount.append("\u2022")
+            ingredientsAmount.append(" ")
+            ingredientsAmount.append(
+                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.name)
+
+            ingredientsAmount.append(" ")
+            ingredientsAmount.append(
+                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.measures?.metric?.amount)
+
+            ingredientsAmount.append(
+                    extractRecipeViewModel.extractedRecipe.value?.extendedIngredients?.get(i)?.measures?.metric?.unitShort)
+
+            ingredientsAmount.append("\n")
+        }
+        return ingredientsAmount
+    }
+
+    private fun createEquipmentForStepList(position: Int): StringBuilder
+    {
+        val equipment = StringBuilder()
+        equipment.append("Equipment: ")
+        for(i in 0..(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.size?.minus(1) ?: 0))
+        {
+            equipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name).append(", ")
+        }
+        return equipment
+    }
+
+    private fun createIngredientsForStepList(position: Int): StringBuilder
+    {
+        val ingredients = StringBuilder()
+        ingredients.append("Ingredients: ")
+        for(i in 0..(extractRecipeViewModel.steps.value?.get(position - 1)?.ingredients?.size?.minus(1) ?: 0))
+        {
+            ingredients.append(extractRecipeViewModel.steps.value?.get(position - 1)?.ingredients?.get(i)?.name).append(", ")
+        }
+        return ingredients
     }
 
     override fun getItemCount(): Int {
