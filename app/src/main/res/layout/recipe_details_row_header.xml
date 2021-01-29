@@ -7,26 +7,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/recipeSearchHeaderImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        android:scaleType="fitStart"
-        tools:srcCompat="@tools:sample/avatars"
-        android:background="@color/blue"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/recipeSearchFavouriteButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="right"
-        android:layout_margin="8dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_favorite_border_24px"
-        app:fabCustomSize="50dp"/>
-
     <TextView
         android:id="@+id/recipeSearchHeaderTitle"
         android:layout_width="match_parent"
@@ -45,5 +25,25 @@
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:lineSpacingExtra="3dp"/>
+
+    <ImageView
+        android:id="@+id/recipeSearchHeaderImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        android:scaleType="fitStart"
+        tools:srcCompat="@tools:sample/avatars"
+        android:background="@color/blue"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/recipeSearchFavouriteButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        app:fabCustomSize="50dp"
+        app:srcCompat="@drawable/ic_favorite_border_24px" />
 
 </LinearLayout>

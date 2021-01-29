@@ -144,7 +144,10 @@ class ExtractRecipeListAdapter (private val extractRecipeViewModel: ExtractRecip
         equipment.append("Equipment: ")
         for(i in 0..(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.size?.minus(1) ?: 0))
         {
-            equipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name).append(", ")
+            equipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name)
+            equipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.temperature?.number?:"")
+            equipment.append(extractRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.temperature?.unit?:"")
+            equipment.append(", ")
         }
         return equipment
     }
