@@ -146,7 +146,13 @@ class SearchRecipeDetailsListAdapter (private val searchRecipeViewModel: SearchR
         equipment.append("Equipment: ")
         for(i in 0..(searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.size?.minus(1) ?: 0))
         {
-            equipment.append(searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name).append(", ")
+            equipment.append(searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.name)
+            if (searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.temperature?.number != null)
+            {
+                equipment.append(" ")
+            }
+            equipment.append(searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.temperature?.number?:"")
+            equipment.append(searchRecipeViewModel.steps.value?.get(position - 1)?.equipment?.get(i)?.temperature?.unit?:"").append(", ")
         }
         return equipment
     }
