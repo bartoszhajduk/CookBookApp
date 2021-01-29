@@ -137,8 +137,13 @@ class FavouriteRecipesDetailsListAdapter (private val favouriteRecipesViewModel:
         for(i in 0..(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.size?.minus(1) ?: 0))
         {
             equipment.append(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.name)
-            equipment.append(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.temperature?.number?:"")
-            equipment.append(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.temperature?.unit?:"")
+
+            if(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.temperature != null) {
+                equipment.append(" ")
+                equipment.append(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.temperature?.number)
+                equipment.append(if(favouriteRecipe.value?.steps?.get(position - 1)?.equipment?.get(i)?.temperature?.unit == "Celsius") "°C" else "°F")
+            }
+
             equipment.append(", ")
         }
         return equipment
